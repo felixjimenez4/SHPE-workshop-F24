@@ -7,7 +7,7 @@ Follow the steps for installation, and you can check it is properly installed by
 
 ## Set-up
 Navigate to the directory you want to create the project either in the console or VScode.
-The command that will create the project folder for us is `npx create-react-app` you can also name it by adding a name at the end like this `npx create-react-app [project name]`
+The command that will create the project folder for us is `npx create-react-app [project name]`
 
 The folder will take time to download and set up everything it needs in the folder, so you can take a small break while it sets up.
 
