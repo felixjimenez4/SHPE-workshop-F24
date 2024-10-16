@@ -1,35 +1,47 @@
-import { useState } from 'react';
-import './App.css';
-import List from './List';
+import React, { useState } from 'react';
+import TodoInput from './TodoInput';
+import TodoList from './TodoList';
 
+const App = () => {
+  const [tasks, setTasks] = useState([]); // State for storing tasks
 
-function App() {
-    
-    const [item, setListName] = useState('');
+  // Function to add a new task
+  const addTask = (newTask) => {
+    setTasks([...tasks, { text: newTask, completed: false }]); // Append the new task
+  };
 
-    const [toDoList, setToDoList] = useState([]);
+  // Function to toggle the completion status of a task
+  const toggleTaskCompletion = (index) => {
+    const updatedTasks = tasks.map((task, taskIndex) => {
+      if (taskIndex === index) {
+        return { ...task, completed: !task.completed }; // Toggle completion
+      }
+      return task;
+    });
+    setTasks(updatedTasks);
+  };
 
-    const table = ["Apple","Button","Jeans"];
-    
-    const handleChange = (e) => {
-        setListName(e.target.value)
-    }
+  // Function to delete a task
+  const deleteTask = (e,index) => {
+    e.stopPropagation();
+    const updatedTasks = tasks.filter((_, taskIndex) => taskIndex !== index); // Remove task
+    setTasks(updatedTasks);
+  };
 
-    const handlSubmit = (e) => {
-        if(item.trim().length !== 0) {
-            setToDoList([...toDoList,{task: item.trim(), completed: false}]);
-            setListName("");
-        } 
-    }
   return (
-    <div className="App">
-        <h1>TO DO list</h1>
-        <input type='text' id='todoName' placeholder='Feed the Dog' value = {item} onChange={handleChange}></input>
-        <button type="button" onClick={handlSubmit}>Enter</button>
-        <List todo={toDoList} setToDoList={setToDoList} />
-        <List todo={table}  />
+    <div class='app'>
+        <div className="interface">
+            <h1>Todo App</h1>
+            <TodoInput addTask={addTask} />
+        </div>
+        <TodoList
+            tasks={tasks}
+            toggleTaskCompletion={toggleTaskCompletion}
+            deleteTask={deleteTask}
+        />
+
     </div>
   );
-}
+};
 
 export default App;
